@@ -9,11 +9,9 @@ var pool            = mysql.createPool({
 })
 
 
-module.exports = {
+module.exports = {    
     
-    //Rota de login
-    async root(req, res, next){        
-        //conexao com banco mysql
+    async root(req, res, next){                
         pool.getConnection(function(err,connection){
             if (err) {
                 res.status(500).send({ status: 'Internal Server Error', error: 'Database connection fail' })
@@ -27,7 +25,7 @@ module.exports = {
                     if (rows.length >0){
                         res.status(200).send({ status: 'OK' })
                     }else {
-                        res.status(401).send({ status: 'Unauthorized', error: 'Authentication fail' })
+                        res.status(200).send({ status: 'OK', error: 'No patients found' })
                     }
                 }else{                    
                     res.status(500).send({ status: 'Internal Server Error', error:'Invalid query' })
