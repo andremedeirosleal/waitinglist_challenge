@@ -27,54 +27,91 @@ Send a "GET" request to the NodeJS server of the project ("localhost:8080/" in t
 {"lat": 23.8162, "lon":-95.4601}
 ```
 
-Tool like Insomina, Postman or even througth a web browser could be used headerput 
+Tools like Insomina, Postman or even througth a web browser could be used to test. 
 
-### Break down into end to end tests
+Are expeted to return a JSon list of 10 registrated names ordenateds by their score.
 
-Explain what these tests test and why
+## Algorithm resume
+* Request server, passing coordinates as Json parameters (those represents the facility location).
+* System validate JSon body (lat and lon are mandatory).
+* System run a instruction to randonly give a chance to low score patients be on top of the list (30%).
+* System connects to MySql database repassing coordinates
+* In the sql query there is a additional line that add 1 point to the score, case of patient be near 10Km.
+* System return Json list of first 10 pacients 
 
+## About the structure
+
+This system was builted over MVC architecture (Model, View, Control). Througth the "express" library was possible simplify routines of request inputs and outputs answeres. 
+
+The biggest detail would be the fact of data be hosted in a cloud server and not in a Json File as originaly expected. The reasons are: 
 ```
-Give an example
+1- The great dificulty of NodeJS (and other Javascript based languages) for ordening lists of Json. Would be necessary a large detachment of time typing routines and more routines to organize data, creating a large dirty quantity of codes.
+
+2- I had no much time and there was not a rule forbiding use of SQL based application :D
+
+3- The Code is more clean, focused on necessary and more human.
 ```
 
-### And coding style tests
+## About random code
 
-Explain what these tests test and why
-
+Was used set of two routines (That I hope be self-explained): 
 ```
-Give an example
+//random number to bring 3 less than 6 score patients to top of list
+//in the query, the var "less_score" is a where clause, to bring 3 rows with score below than "less_score" var.
+let less_score = Math.floor(Math.random() * 6);
+
+
+
+//We got 2 formed sql queries. One is the normal, what brings only the top scored patients
+//The second query bring 3 low score patients to top of the list and more 7 normal top scoreds
+//Below, the random chance for second query to be the chosed one 
+let sql = query1
+let val = Math.floor(Math.random() * 100);            
+if (val > 69)  sql = query2   //30% chance for 3 less then 6 score patients
 ```
 
-## Deployment
+## About the SCORE
 
-Add additional notes about how to deploy this on a live system
+Througth of the test requirements, was used the following criteria:
 
-## Built With
+Demographic
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+- age  (weighted 10%)
+- distance to practice (weighted 10%)
 
-## Contributing
+Behavior
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+- number of accepted offers (weighted 30%)
+- number of cancelled offers (weighted 30%)
+- reply time (how long it took for patients to reply) (weighted 20%) 
 
-## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+I have created a MySql event (timed function) that update each row with score = null, and it runs each 5 seconds.
+```
+-- Score is calculate for an event on mysql called "tm_score_patients"
+-- Event is set to operate each 5 secs a change avery row with score = null
+
+BEGIN
+	-- limits to calculate score 
+	SET @age = 60;					-- more than x 1 pt
+	SET @acceptedOffers = 0;		-- more than x get 3 pts
+	SET @canceledOffers = 0;		-- less than x get 3 pts
+	SET @averageReplyTime = 600;	-- less than x get 2 pts | given in sec | 600=10 min
+
+	update tbl_patients set score = (
+		if (age >= @age, 1, 0) +
+		if (acceptedOffers > @acceptedOffers, 3, 0) +
+		if (canceledOffers > @canceledOffers, 0, 3) +	
+		if (averageReplyTime < @averageReplyTime, 2, 0)
+	)where score is null or score = '';
+END
+```
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+* **Andre de Souza Medeiros Leal** - *Systems analyst* - [Github](https://github.com/andremedeirosleal)
+* See also my profile on [Linkedin](https://github.com/your/project/contributors) 
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+This project is licensed under the MIT License.
