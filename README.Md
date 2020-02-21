@@ -43,18 +43,18 @@ Are expeted to return a JSon list of 10 registrated names ordenateds by their sc
 
 This system was builted over MVC architecture (Model, View, Control). Througth the "express" library was possible simplify routines of request inputs and outputs answeres. 
 
-The biggest detail would be the fact of data be hosted in a cloud server and not in a Json File as originaly expected. The reasons are: 
+The biggest detail would be the fact of data be hosted in a cloud Mysql server and not in a Json File as originaly expected. The reasons are: 
 ```
-1- The great dificulty of NodeJS (and other Javascript based languages) for ordening lists of Json. Would be necessary a large detachment of time typing routines and more routines to organize data, creating a large dirty quantity of codes.
+1- The great dificulty of NodeJS (and other Javascript based languages) for ordening Json lists. Would be necessary a large detachment of time typing routines to organize data, creating a large quantity of dirty code.
 
-2- I had no much time and there was not a rule forbiding use of SQL based application :D
+2- I had no much time and there was not a rule forbiding to use SQL based application :D
 
 3- The Code is more clean, focused on necessary and more human.
 ```
 
 ## About random code
 
-Was used set of two routines (That I hope be self-explained): 
+Was used a set of two routines (That I hope to be self-explained): 
 ```
 //random number to bring 3 less than 6 score patients to top of list
 //in the query, the var "less_score" is a where clause, to bring 3 rows with score below than "less_score" var.
