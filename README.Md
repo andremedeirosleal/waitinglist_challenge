@@ -8,7 +8,7 @@ Using the GET method for the api's hosting address ("localhost: 8080" in this ca
 
 ### Prerequisites
 
-Execute NodeJS ("Node app.js"), have all the dependecies installed (Example: "npm i express"). Be sure to have internet connection to access the stored mysql of this project or have the mysql database hosted in some other server (Needed SQL instructions are stored in "documentation" folder).
+Execute NodeJS ("Node app.js"), to have all the dependecies installed (Example: "npm i express"). Be sure to have internet connection to access the stored mysql of this project or have the mysql database hosted in some other server (Needed SQL instructions are stored in "documentation" folder).
 
 ```
 "dependencies": {
@@ -49,7 +49,7 @@ The biggest detail would be the fact of data be hosted in a cloud Mysql server a
 
 2- I had no much time and there was not a rule forbiding to use SQL based application :D
 
-3- The Code is more clean, focused on necessary and more human.
+3- The Code is more clean, focused on necessary and more human to understand.
 ```
 
 ## About random code
