@@ -146,7 +146,7 @@ END
 ```
 
 
-## Authors
+## Author
 
 * **Andre de Souza Medeiros Leal** - *Systems analyst* - [Github](https://github.com/andremedeirosleal)
 * See also my profile on [Linkedin](https://github.com/your/project/contributors) 
