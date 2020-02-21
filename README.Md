@@ -8,7 +8,7 @@ Using the GET method for the api's hosting address ("localhost: 8080" in this ca
 
 ### Prerequisites
 
-To execute NodeJS ("Node app.js"), have all the dependecies installed (Example: "npm i express"). have mysql database hosted in some server (Needed SQL instructions are stored in "documentation" folder)
+Execute NodeJS ("Node app.js"), have all the dependecies installed (Example: "npm i express"). Be sure to have internet connection to access the stored mysql of this project or have the mysql database hosted in some other server (Needed SQL instructions are stored in "documentation" folder).
 
 ```
 "dependencies": {
@@ -19,27 +19,15 @@ To execute NodeJS ("Node app.js"), have all the dependecies installed (Example: 
 }
 ```
 
-### Installing
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
 ## Running the tests
 
-Explain how to run the automated tests for this system
+Send a "GET" request to the NodeJS server of the project ("localhost:8080/" in this example), passing parameters of coordinates (latitude, longitude) througth Json body.
+
+```
+{"lat": 23.8162, "lon":-95.4601}
+```
+
+Tool like Insomina, Postman or even througth a web browser could be used headerput 
 
 ### Break down into end to end tests
 
